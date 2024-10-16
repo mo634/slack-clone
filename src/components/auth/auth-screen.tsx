@@ -8,7 +8,7 @@ import SignUp from './sign-up-card'
 const AuthScreen = () => {
     const [state, setState] = useState<registerFlow>("signIn")
     return (
-        <section>
+        <section className='h-full flex items-center justify-center  bg-mainColor '>
             {
                 state === "signIn" ? <SignIn />
                     : <SignUp />
