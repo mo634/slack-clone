@@ -5,10 +5,18 @@ import { Separator } from '../ui/separator';
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { registerFlow } from './types';
+import { useState } from 'react';
 interface SignUpProps {
     setState: (state: registerFlow) => void
 }
 const SignUp = ({ setState }: SignUpProps) => {
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        confirmPassword: ''
+    })
+
     return (
         <Card className=' bg-[#eee]'>
             <CardHeader>
@@ -28,9 +36,9 @@ const SignUp = ({ setState }: SignUpProps) => {
 
                 <CardDescription className=' text-primary '>
 
-                    <p>
+                    <span>
                         Enter your email and password
-                    </p>
+                    </span>
 
                 </CardDescription>
 
@@ -43,13 +51,14 @@ const SignUp = ({ setState }: SignUpProps) => {
 
                     <div className="input-focus-effect ">
                         <input
-                            value={''}
+
+                            value={formData.email}
                             type="email"
                             className="input-style"
                             placeholder="Ex:moh123@gmail.com"
                             disabled={false}
                             required
-                            onChange={() => { }}
+                            onChange={(e) => { setFormData({ ...formData, email: e.target.value }) }}
                         />
 
                     </div>
@@ -57,13 +66,24 @@ const SignUp = ({ setState }: SignUpProps) => {
 
                     <div className="input-focus-effect">
                         <input
-                            value={''}
+                            value={formData.password}
                             type="password"
                             className="input-style"
                             placeholder="EX:123456"
                             disabled={false}
                             required
-                            onChange={() => { }}
+                            onChange={(e) => { setFormData({ ...formData, password: e.target.value }) }}
+                        />
+                    </div>
+                    <div className="input-focus-effect">
+                        <input
+                            value={formData.confirmPassword}
+                            type="password"
+                            className="input-style"
+                            placeholder="Confir The Password"
+                            disabled={false}
+                            required
+                            onChange={(e) => { setFormData({ ...formData, confirmPassword: e.target.value }) }}
                         />
                     </div>
                     <Button>
