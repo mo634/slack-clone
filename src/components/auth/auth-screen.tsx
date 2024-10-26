@@ -10,8 +10,10 @@ const AuthScreen = () => {
     return (
         <section className='h-full flex items-center justify-center  bg-mainColor '>
             {
-                state === "signIn" ? <SignIn />
-                    : <SignUp />
+                state === "signIn" ?
+                    <SignIn setState={setState} />
+                    :
+                    <SignUp setState={setState} />
             }
         </section>
     )

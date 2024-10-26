@@ -5,8 +5,12 @@ import { CiLogin } from "react-icons/ci";
 import { Separator } from '../ui/separator';
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { registerFlow } from './types';
 
-const SignIn = () => {
+interface SignInProps {
+    setState: (state: registerFlow) => void
+}
+const SignIn = ({ setState }: SignInProps) => {
     return (
         <Card className=' bg-[#eee]'>
             <CardHeader>
@@ -95,8 +99,9 @@ const SignIn = () => {
                 </div>
                 {/* end    continue with (google and github ) */}
 
-                <p className='mt-2'>Don't have an account ? <span className='cursor-pointer hover:underline text-sky-700'>sing up</span> </p>
-
+                <p className='mt-2'>Don't have an account ? <span className='cursor-pointer hover:underline text-sky-700'
+                    onClick={() => setState("signUp")}
+                >sing up</span> </p>
 
             </CardContent>
         </Card>
