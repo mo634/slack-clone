@@ -2,6 +2,10 @@ import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import { CiLogin } from "react-icons/ci";
+import { Separator } from '../ui/separator';
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+
 const SignIn = () => {
     return (
         <Card className=' bg-[#eee]'>
@@ -61,9 +65,39 @@ const SignIn = () => {
                         />
                     </div>
                     <Button>
+
+
                         Clicke me
                     </Button>
                 </form>
+                <Separator />
+
+                {/* start  continue with (google and github ) */}
+                <div className="flex flex-col gap-y-2.5">
+                    <Button
+                        disabled={false}
+                        onClick={() => { }}
+                        variant="outline"
+                        className='relative'
+                        size={"lg"}
+                    >
+                        <FcGoogle className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
+                        continue wih google
+                    </Button>
+                    <Button disabled={false}
+                        onClick={() => { }}
+                        variant="outline"
+                        className='relative'
+                        size={"lg"}>
+                        <FaGithub className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
+
+                        continue wih with github</Button>
+                </div>
+                {/* end    continue with (google and github ) */}
+
+                <p className='mt-2'>Don't have an account ? <span className='cursor-pointer hover:underline text-sky-700'>sing up</span> </p>
+
+
             </CardContent>
         </Card>
     )
