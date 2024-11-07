@@ -3,7 +3,9 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='h-full'><AuthScreen /> </div>
+    <div className='h-full'>
+      <p>Home Page </p>
+    </div>
   )
 }
 

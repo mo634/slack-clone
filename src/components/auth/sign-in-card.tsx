@@ -7,7 +7,7 @@ import { Separator } from '../ui/separator';
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { registerFlow } from './types';
-
+import { useAuthActions } from "@convex-dev/auth/react";
 interface SignInProps {
     setState: (state: registerFlow) => void
 }
@@ -18,6 +18,14 @@ const SignIn = ({ setState }: SignInProps) => {
         email: '',
         password: ''
     })
+
+    const { signIn } = useAuthActions();
+    const handleProviderSignIn = (provider: 'google' | 'github') => {
+
+        signIn(provider)
+
+
+    }
 
     // functions 
 
@@ -35,7 +43,7 @@ const SignIn = ({ setState }: SignInProps) => {
                 <CardTitle className=' text-primary  text-xl'>
                     <div className="flex justify-between items-center">
                         <p>
-                            Sign In To Continue
+                            Sign In To Continue ss
                         </p>
                         <CiLogin
                             className=' text-2xl text-primary'
@@ -106,13 +114,15 @@ const SignIn = ({ setState }: SignInProps) => {
                         continue wih google
                     </Button>
                     <Button disabled={false}
-                        onClick={() => { }}
+                        onClick={() => handleProviderSignIn("github")}
                         variant="outline"
                         className='relative'
                         size={"lg"}>
                         <FaGithub className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
 
-                        continue wih with github</Button>
+                        continue wih with github
+
+                    </Button>
                 </div>
                 {/* end    continue with (google and github ) */}
 
