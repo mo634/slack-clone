@@ -8,21 +8,47 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { registerFlow } from './types';
 import { useAuthActions } from "@convex-dev/auth/react";
+import Loader from "../Loader.jsx"
 interface SignInProps {
     setState: (state: registerFlow) => void
 }
 const SignIn = ({ setState }: SignInProps) => {
     // states 
 
+    const [isSignInLoading, setIsSignInLoading] = useState(false)
+    const [isGoogleLoading, setIsGoogleLoading] = useState(false)
+    const [isGithubLoading, setIsGithubLoading] = useState(false)
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
 
-    const { signIn } = useAuthActions();
-    const handleProviderSignIn = (provider: 'google' | 'github') => {
+    const [isLoading, setIsLoading] = useState(false)
 
-        signIn(provider)
+    const { signIn } = useAuthActions();
+    const handleProviderSignIn = async (provider: 'google' | 'github') => {
+
+        try {
+
+            setIsLoading(true)
+
+            provider === 'google' ? setIsGoogleLoading(true) : setIsGithubLoading(true);
+
+            await signIn(provider)
+
+
+        } catch (error) {
+            alert("something want wrong ")
+        }
+
+        finally {
+
+            // Reset the loading state for the clicked button
+            provider === 'google' ? setIsGoogleLoading(false) : setIsGithubLoading(false);
+            setIsLoading(false)
+        }
+
 
 
     }
@@ -74,7 +100,7 @@ const SignIn = ({ setState }: SignInProps) => {
                             type="email"
                             className="input-style"
                             placeholder="Ex:moh123@gmail.com"
-                            disabled={false}
+                            disabled={isLoading}
                             required
                             onChange={(e) => { setFormData({ ...formData, email: e.target.value }) }}
                         />
@@ -88,15 +114,17 @@ const SignIn = ({ setState }: SignInProps) => {
                             type="password"
                             className="input-style"
                             placeholder="EX:123456"
-                            disabled={false}
+                            disabled={isLoading}
                             required
                             onChange={(e) => { setFormData({ ...formData, password: e.target.value }) }}
                         />
                     </div>
-                    <Button disabled={false} onClick={handleSubmit}>
-
-
-                        Clicke me
+                    <Button disabled={isLoading} onClick={handleSubmit}
+                        className={` ${isSignInLoading ? "bg-transparent shadow-none " : ""} my-2`}
+                    >
+                        {
+                            isSignInLoading ? <Loader /> : "Sign In"
+                        }
                     </Button>
                 </form>
                 <Separator />
@@ -104,23 +132,38 @@ const SignIn = ({ setState }: SignInProps) => {
                 {/* start  continue with (google and github ) */}
                 <div className="flex flex-col gap-y-2.5">
                     <Button
-                        disabled={false}
-                        onClick={() => { }}
+                        disabled={isLoading}
+                        onClick={() => handleProviderSignIn("google")}
                         variant="outline"
-                        className='relative'
+                        className={`relative my-2 ${isLoading ? "bg-transparent" : ""}`}
                         size={"lg"}
                     >
-                        <FcGoogle className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
-                        continue wih google
+                        {
+                            isGoogleLoading ? <Loader />
+
+                                :
+                                <>
+                                    <FcGoogle className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
+                                    continue wih google
+                                </>
+
+
+                        }
                     </Button>
-                    <Button disabled={false}
+                    <Button disabled={isLoading}
                         onClick={() => handleProviderSignIn("github")}
                         variant="outline"
-                        className='relative'
+                        className={`relative my-2 ${isLoading ? "bg-transparent" : ""}`}
                         size={"lg"}>
-                        <FaGithub className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
 
-                        continue wih with github
+                        {
+                            isGithubLoading ? <Loader />
+                                :
+                                <>
+                                    <FaGithub className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
+                                    continue wih github
+                                </>
+                        }
 
                     </Button>
                 </div>
