@@ -26,7 +26,7 @@ const SignIn = ({ setState }: SignInProps) => {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const { signIn } = useAuthActions();
+    const { signIn, signOut } = useAuthActions();
     const handleProviderSignIn = async (provider: 'google' | 'github') => {
 
         try {
