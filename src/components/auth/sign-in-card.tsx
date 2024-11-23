@@ -4,36 +4,52 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui
 import { Button } from '../ui/button'
 import { CiLogin } from "react-icons/ci";
 import { Separator } from '../ui/separator';
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
 import { registerFlow } from './types';
 import { useAuthActions } from "@convex-dev/auth/react";
 import Loader from "../Loader.jsx"
+import ProviderButton from './ProviderButton'
+
+import { TriangleAlert } from "lucide-react"
 interface SignInProps {
     setState: (state: registerFlow) => void
 }
 const SignIn = ({ setState }: SignInProps) => {
     // states 
+    const [loadingState, setLoadingState] = useState({
+        signIn: false,
+        google: false,
+        github: false,
+        general: false,
+    });
 
-    const [isSignInLoading, setIsSignInLoading] = useState(false)
-    const [isGoogleLoading, setIsGoogleLoading] = useState(false)
-    const [isGithubLoading, setIsGithubLoading] = useState(false)
 
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
 
-    const [isLoading, setIsLoading] = useState(false)
 
-    const { signIn, signOut } = useAuthActions();
+    const [error, setError] = useState<string | null>(null)
+
+    const { signIn } = useAuthActions();
+
+    // functions 
+
+    const setLoading = (key: keyof typeof loadingState, value: boolean) => {
+        setLoadingState((prev) => ({
+            ...prev,
+            [key]: value,
+        }));
+    };
+
+
     const handleProviderSignIn = async (provider: 'google' | 'github') => {
 
         try {
 
-            setIsLoading(true)
+            setLoading("general", true)
 
-            provider === 'google' ? setIsGoogleLoading(true) : setIsGithubLoading(true);
+            provider === 'google' ? setLoading("google", true) : setLoading("github", true);
 
             await signIn(provider)
 
@@ -45,18 +61,30 @@ const SignIn = ({ setState }: SignInProps) => {
         finally {
 
             // Reset the loading state for the clicked button
-            provider === 'google' ? setIsGoogleLoading(false) : setIsGithubLoading(false);
-            setIsLoading(false)
+            provider === 'google' ? setLoading("google", false) : setLoading("github", false);
+            setLoading("general", false)
         }
 
 
 
     }
 
-    // functions 
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setError(null)
+        setLoading("signIn", true)
+        const { email, password } = formData
+        signIn("password",
+            { email, password, flow: "signIn" }
+        ).catch(() => {
+            setError("Invalid Email or Password ")
+        }).finally(
+            () => {
+                setLoading("signIn", false)
+            }
+        )
+
+
         console.log(formData)
     }
 
@@ -69,7 +97,7 @@ const SignIn = ({ setState }: SignInProps) => {
                 <CardTitle className=' text-primary  text-xl'>
                     <div className="flex justify-between items-center">
                         <p>
-                            Sign In To Continue ss
+                            Sign In To Continue
                         </p>
                         <CiLogin
                             className=' text-2xl text-primary'
@@ -89,6 +117,15 @@ const SignIn = ({ setState }: SignInProps) => {
 
             </CardHeader>
 
+            {
+                error && (
+                    <div className=" flex m-auto text-destructive bg-destructive/15 w-fit items-center gap-2 px-4 py-2 rounded-md mb-2">
+                        <TriangleAlert />
+                        <p>{error}</p>
+                    </div>
+                )
+            }
+
 
             <CardContent className='w-[450px]'>
                 <form className=' flex flex-col focus-within:w-full '>
@@ -100,7 +137,7 @@ const SignIn = ({ setState }: SignInProps) => {
                             type="email"
                             className="input-style"
                             placeholder="Ex:moh123@gmail.com"
-                            disabled={isLoading}
+                            disabled={loadingState.general}
                             required
                             onChange={(e) => { setFormData({ ...formData, email: e.target.value }) }}
                         />
@@ -114,59 +151,39 @@ const SignIn = ({ setState }: SignInProps) => {
                             type="password"
                             className="input-style"
                             placeholder="EX:123456"
-                            disabled={isLoading}
+                            disabled={loadingState.general}
                             required
                             onChange={(e) => { setFormData({ ...formData, password: e.target.value }) }}
                         />
                     </div>
-                    <Button disabled={isLoading} onClick={handleSubmit}
-                        className={` ${isSignInLoading ? "bg-transparent shadow-none " : ""} my-2`}
-                    >
-                        {
-                            isSignInLoading ? <Loader /> : "Sign In"
-                        }
-                    </Button>
+
+                    {
+                        loadingState.signIn ? <p className='text-center'>signing in ...</p> :
+                            <Button disabled={loadingState.general} onClick={handleSubmit}
+                                className={` ${loadingState.general ? "bg-none shadow-none " : ""} my-2`}
+                            >
+                                Sign In
+                            </Button>
+                    }
                 </form>
                 <Separator />
 
                 {/* start  continue with (google and github ) */}
-                <div className="flex flex-col gap-y-2.5">
-                    <Button
-                        disabled={isLoading}
-                        onClick={() => handleProviderSignIn("google")}
-                        variant="outline"
-                        className={`relative my-2 ${isLoading ? "bg-transparent" : ""}`}
-                        size={"lg"}
-                    >
-                        {
-                            isGoogleLoading ? <Loader />
+                <>
 
-                                :
-                                <>
-                                    <FcGoogle className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
-                                    continue wih google
-                                </>
+                    <ProviderButton
+                        type="google"
+                        loadingState={loadingState.google}
+                        handleProviderSignIn={handleProviderSignIn}
+                    />
 
+                    <ProviderButton
+                        type="github"
+                        loadingState={loadingState.github}
+                        handleProviderSignIn={handleProviderSignIn}
+                    />
 
-                        }
-                    </Button>
-                    <Button disabled={isLoading}
-                        onClick={() => handleProviderSignIn("github")}
-                        variant="outline"
-                        className={`relative my-2 ${isLoading ? "bg-transparent" : ""}`}
-                        size={"lg"}>
-
-                        {
-                            isGithubLoading ? <Loader />
-                                :
-                                <>
-                                    <FaGithub className=' absolute top-1/2 left-2 -translate-y-1/2  text-2xl' />
-                                    continue wih github
-                                </>
-                        }
-
-                    </Button>
-                </div>
+                </>
                 {/* end    continue with (google and github ) */}
 
                 <p className='mt-2'>Don't have an account ? <span className='cursor-pointer hover:underline text-sky-700'
