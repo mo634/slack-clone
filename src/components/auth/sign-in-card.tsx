@@ -17,7 +17,8 @@ const SignIn = ({ setState }: SignInProps) => {
     // states 
     const [loading, setLoading] = useState(false)
 
-    const [loadingProvider, setLoadingProvider] = useState(false)
+    const [gitHubLoading, setGithubLoading] = useState(false)
+    const [googleLoading, setGoogleLoading] = useState(false)
 
     const [error, setError] = useState<string | null>(null)
 
@@ -35,7 +36,11 @@ const SignIn = ({ setState }: SignInProps) => {
 
         try {
 
-            setLoadingProvider(true)
+            if (provider === "github") {
+                setGithubLoading(true)
+            } else {
+                setGoogleLoading(true)
+            }
 
             await signIn(provider)
 
@@ -46,7 +51,8 @@ const SignIn = ({ setState }: SignInProps) => {
 
         finally {
 
-            setLoadingProvider(true)
+            setGoogleLoading(false)
+            setGithubLoading(false)
         }
 
 
@@ -159,13 +165,13 @@ const SignIn = ({ setState }: SignInProps) => {
 
                     <ProviderButton
                         type="google"
-                        loadingState={loadingProvider}
+                        loadingState={googleLoading}
                         handleProviderSignIn={() => handleProviderSignIn("google")}
                     />
 
                     <ProviderButton
                         type="github"
-                        loadingState={loadingProvider}
+                        loadingState={gitHubLoading}
                         handleProviderSignIn={() => handleProviderSignIn("github")}
                     />
 
