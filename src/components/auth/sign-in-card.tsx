@@ -160,13 +160,13 @@ const SignIn = ({ setState }: SignInProps) => {
                     <ProviderButton
                         type="google"
                         loadingState={loadingProvider}
-                        handleProviderSignIn={handleProviderSignIn}
+                        handleProviderSignIn={() => handleProviderSignIn("google")}
                     />
 
                     <ProviderButton
                         type="github"
                         loadingState={loadingProvider}
-                        handleProviderSignIn={handleProviderSignIn}
+                        handleProviderSignIn={() => handleProviderSignIn("github")}
                     />
 
                 </>
