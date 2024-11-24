@@ -6,50 +6,36 @@ import { CiLogin } from "react-icons/ci";
 import { Separator } from '../ui/separator';
 import { registerFlow } from './types';
 import { useAuthActions } from "@convex-dev/auth/react";
-import Loader from "../Loader.jsx"
-import ProviderButton from './ProviderButton'
+import ProviderButton from './auth-components/ProviderButton'
 
 import { TriangleAlert } from "lucide-react"
+import FormInput from "./auth-components/FormInput"
 interface SignInProps {
     setState: (state: registerFlow) => void
 }
 const SignIn = ({ setState }: SignInProps) => {
     // states 
-    const [loadingState, setLoadingState] = useState({
-        signIn: false,
-        google: false,
-        github: false,
-        general: false,
-    });
+    const [loading, setLoading] = useState(false)
 
+    const [loadingProvider, setLoadingProvider] = useState(false)
+
+    const [error, setError] = useState<string | null>(null)
 
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
 
-
-    const [error, setError] = useState<string | null>(null)
-
     const { signIn } = useAuthActions();
 
     // functions 
-
-    const setLoading = (key: keyof typeof loadingState, value: boolean) => {
-        setLoadingState((prev) => ({
-            ...prev,
-            [key]: value,
-        }));
-    };
 
 
     const handleProviderSignIn = async (provider: 'google' | 'github') => {
 
         try {
 
-            setLoading("general", true)
-
-            provider === 'google' ? setLoading("google", true) : setLoading("github", true);
+            setLoadingProvider(true)
 
             await signIn(provider)
 
@@ -60,9 +46,7 @@ const SignIn = ({ setState }: SignInProps) => {
 
         finally {
 
-            // Reset the loading state for the clicked button
-            provider === 'google' ? setLoading("google", false) : setLoading("github", false);
-            setLoading("general", false)
+            setLoadingProvider(true)
         }
 
 
@@ -71,16 +55,20 @@ const SignIn = ({ setState }: SignInProps) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
         setError(null)
-        setLoading("signIn", true)
+
+        setLoading(true)
+
         const { email, password } = formData
+
         signIn("password",
             { email, password, flow: "signIn" }
         ).catch(() => {
             setError("Invalid Email or Password ")
         }).finally(
             () => {
-                setLoading("signIn", false)
+                setLoading(true)
             }
         )
 
@@ -91,7 +79,7 @@ const SignIn = ({ setState }: SignInProps) => {
     // start rendering 
 
     return (
-        <Card className=' bg-[#eee]'>
+        <Card className=' bg-[#eee] max-sm:w-[100vw] flex items-start flex-col flex-wrap p-2'>
             <CardHeader>
 
                 <CardTitle className=' text-primary  text-xl'>
@@ -99,9 +87,7 @@ const SignIn = ({ setState }: SignInProps) => {
                         <p>
                             Sign In To Continue
                         </p>
-                        <CiLogin
-                            className=' text-2xl text-primary'
-                        />
+
 
 
                     </div>
@@ -127,44 +113,44 @@ const SignIn = ({ setState }: SignInProps) => {
             }
 
 
-            <CardContent className='w-[450px]'>
-                <form className=' flex flex-col focus-within:w-full '>
+            <CardContent className='w-[450px] max-sm:w-[100vw]'>
+                <form
+                    onSubmit={handleSubmit}
+                    className=' flex flex-col focus-within:w-full w- n'>
+
+                    <FormInput
+                        fieldKey='email'
+                        loading={loading}
+                        formData={formData}
+                        setFormData={setFormData}
+                        inputValue={formData.email}
+                        type="email"
+                        placeholder="Ex:moh123@gmail.com"
+                    />
+                    <FormInput
+                        fieldKey='password'
+                        loading={loading}
+                        formData={formData}
+                        setFormData={setFormData}
+                        inputValue={formData.password}
+                        type="password"
+                        placeholder="EX:123456"
+                    />
 
 
-                    <div className="input-focus-effect ">
-                        <input
-                            value={formData.email}
-                            type="email"
-                            className="input-style"
-                            placeholder="Ex:moh123@gmail.com"
-                            disabled={loadingState.general}
-                            required
-                            onChange={(e) => { setFormData({ ...formData, email: e.target.value }) }}
-                        />
-
-                    </div>
-
-
-                    <div className="input-focus-effect">
-                        <input
-                            value={formData.password}
-                            type="password"
-                            className="input-style"
-                            placeholder="EX:123456"
-                            disabled={loadingState.general}
-                            required
-                            onChange={(e) => { setFormData({ ...formData, password: e.target.value }) }}
-                        />
-                    </div>
 
                     {
-                        loadingState.signIn ? <p className='text-center'>signing in ...</p> :
-                            <Button disabled={loadingState.general} onClick={handleSubmit}
-                                className={` ${loadingState.general ? "bg-none shadow-none " : ""} my-2`}
+                        loading ? <p className='text-center'>signing in ...</p> :
+                            <Button disabled={loading} type='submit'
+                                className={` ${loading ? "bg-none shadow-none " : ""} my-2 text-lg`}
                             >
+                                <CiLogin
+                                    className='mr-4 text-2xl text-white'
+                                />
                                 Sign In
                             </Button>
                     }
+
                 </form>
                 <Separator />
 
@@ -173,13 +159,13 @@ const SignIn = ({ setState }: SignInProps) => {
 
                     <ProviderButton
                         type="google"
-                        loadingState={loadingState.google}
+                        loadingState={loadingProvider}
                         handleProviderSignIn={handleProviderSignIn}
                     />
 
                     <ProviderButton
                         type="github"
-                        loadingState={loadingState.github}
+                        loadingState={loadingProvider}
                         handleProviderSignIn={handleProviderSignIn}
                     />
 

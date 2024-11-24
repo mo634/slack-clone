@@ -1,8 +1,7 @@
-
-import { Button } from '../ui/button'
-import Loader from '../Loader'
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { Loader } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 interface ProviderButtonProps {
     handleProviderSignIn: (provider: 'google' | 'github') => Promise<void>;
     loadingState: boolean;
