@@ -1,5 +1,5 @@
 import React from 'react'
-import { useUserInfo } from '../hooks/use-current-user'
+import { useUserInfo } from '../api/use-current-user'
 import { Loader, LogOut } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
