@@ -6,7 +6,11 @@ import { useWorkSpaces } from '@/components/workspaces/api/use-get-work-spaces';
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useAtom } from 'jotai';
 import { useEffect, useMemo } from 'react';
+import CreateWorkSpacesModal from '@/components/workspaces/components/create-work-spaces-modal';
+import Models from '@/components/models';
 const page = () => {
+  const { signOut } = useAuthActions();
+
   const { data, isLoading } = useWorkSpaces();
 
 
@@ -31,9 +35,10 @@ const page = () => {
     }
 
   }, [isLoading, workSpaceId, isOpen, setIsOpen]);
-  const { signOut } = useAuthActions();
+
   return (
     <div className='h-full'>
+      < Models />
       <p>Logged In !</p>
       <UserButton />
     </div>
