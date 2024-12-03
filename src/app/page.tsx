@@ -8,7 +8,10 @@ import { useAtom } from 'jotai';
 import { useEffect, useMemo } from 'react';
 import CreateWorkSpacesModal from '@/components/workspaces/components/create-work-spaces-modal';
 import Models from '@/components/models';
+import { useRouter } from 'next/navigation';
+import { Toaster } from '@/components/ui/sonner';
 const page = () => {
+  const router = useRouter();
   const { signOut } = useAuthActions();
 
   const { data, isLoading } = useWorkSpaces();
@@ -26,6 +29,7 @@ const page = () => {
     }
     if (workSpaceId) {
       console.log("redirect to work space ")
+      router.replace(`/workspaces/${workSpaceId}`);
     }
 
     // if no workspace created open the create workspace modal 
@@ -37,6 +41,7 @@ const page = () => {
 
   return (
     <div className='h-full'>
+
       < Models />
       <p>Logged In !</p>
       <UserButton />

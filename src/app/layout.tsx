@@ -4,6 +4,7 @@ import "./globals.css";
 import { ConvexClientProvider } from "@/components/convexProvider";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import CreateWorkSpacesModal from "@/components/workspaces/components/create-work-spaces-modal";
+import { Toaster } from "sonner";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -34,7 +35,7 @@ export default function RootLayout({
           <ConvexClientProvider>
 
             {children}
-
+            <Toaster />
           </ConvexClientProvider>
         </body>
       </html>

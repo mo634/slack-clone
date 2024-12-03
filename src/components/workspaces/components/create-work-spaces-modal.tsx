@@ -8,12 +8,15 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { toast } from "sonner"
 import { useAtom } from 'jotai'
 import { modalOpenAtom } from '../store/modalAtom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useCreateWorkSpace } from '../api/use-create-work-space'
+import { useRouter } from 'next/navigation'
 const CreateWorkSpacesModal = () => {
+    const router = useRouter()
     const [name, setName] = useState<string>("")
     const [isOpen, setIsOpen] = useAtom(modalOpenAtom)
 
@@ -34,6 +37,7 @@ const CreateWorkSpacesModal = () => {
                 {
                     onSuccess: (data) => {
                         console.log(data)
+                        toast.success("workspace created successfully", { duration: 3000 })
                     },
                     onError: (error) => {
 
