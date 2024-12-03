@@ -1,27 +1,73 @@
 import { useMutation } from "convex/react"
 import { api } from "../../../../convex/_generated/api"
-import { useCallback } from "react"
+import { useCallback, useMemo, useState } from "react"
+import { Id } from "../../../../convex/_generated/dataModel"
 
-type RequestType = any
-type Options = {
-    onSuccess?: () => void
-    onError?: () => void
-    onSettled?: () => void
+type RequestType = {
+    name: string
 }
 
-export const createWorkSpace = async () => {
+type ResponseType = Id<"workSpaces"> | null
+type Options = {
+    onSuccess?: (data: ResponseType) => void
+    onError?: (error: Error) => void
+    onSettled?: () => void
+    throwError?: boolean
+}
+
+export const useCreateWorkSpace = () => {
+    const [data, setData] = useState<ResponseType>(null)
+
+    const [error, setError] = useState<Error | null>(null)
+
+    const [status, setStatus] = useState<"success" | "error" | "pending" | "settled" | null>(null)
+
+    const isPending = useMemo(() => status === "pending", [status])
+    const isError = useMemo(() => status === "error", [status])
+    const isSuccess = useMemo(() => status === "success", [status])
+    const isSettled = useMemo(() => status === "settled", [status])
+
     // get the workspace id 
-    const mutaion = useMutation(api.workspaces.createWorkspace);
+    const mutation = useMutation(api.workspaces.createWorkspace);
+
+
+
 
     // start process on workspace doc 
 
-    const mutate = useCallback((valuse: RequestType, options: Options) => {
+    const mutate = useCallback(async (valuse: RequestType, options?: Options) => {
         try {
+            // reset the states
+            setData(null)
+            setError(null)
+            setStatus("pending")
+
+            const response = await mutation(valuse);
+
+            options?.onSuccess?.(response);
+
+            return response
 
         } catch (error) {
-            console.error("Error creating workspace:", error);
+            setStatus("error")
+            options?.onError?.(error as Error);
+            if (options?.throwError) {
+                throw error
+            }
         } finally {
-
+            setStatus("settled")
+            options?.onSettled?.();
         }
-    }, []);
-}
+    }, [mutation])
+
+    return {
+        mutate,
+        data,
+        error,
+        isPending,
+        isError,
+        isSuccess,
+        isSettled
+    }
+
+} 

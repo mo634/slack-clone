@@ -17,7 +17,6 @@ const page = () => {
   const [isOpen, setIsOpen] = useAtom(modalOpenAtom);
 
 
-  console.log(isOpen)
 
   const workSpaceId = useMemo(() => data?.[0]?._id, [data]);
 

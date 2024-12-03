@@ -15,6 +15,7 @@ import { getAuthUserId } from "@convex-dev/auth/server";
         }
 
         const joinCode ="123456"
+        
         const workspaceId = await ctx.db.insert("workSpaces", {
         name : args.name,
         userId,

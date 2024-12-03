@@ -5,7 +5,7 @@ export const getUserInfo = query({
     handler: async (ctx) => {
     
         try {
-            console.log(" ***********context query started*********** ");
+            
             const userId = await getAuthUserId(ctx);
 
             if (userId === null) {
@@ -14,7 +14,7 @@ export const getUserInfo = query({
             }
 
             const user = await ctx.db.get(userId);
-            console.log(" *****context query ended ******* ");
+            
             return user;
             
         } catch (error) {

@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -12,15 +12,37 @@ import { useAtom } from 'jotai'
 import { modalOpenAtom } from '../store/modalAtom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useCreateWorkSpace } from '../api/use-create-work-space'
 const CreateWorkSpacesModal = () => {
-
+    const [name, setName] = useState<string>("")
     const [isOpen, setIsOpen] = useAtom(modalOpenAtom)
 
-    console.log("from dialog", isOpen)
+    const { mutate } = useCreateWorkSpace()
 
     const handleClose = () => {
         setIsOpen(false)
 
+    }
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try {
+            await mutate(
+                {
+                    name
+                },
+                {
+                    onSuccess: (data) => {
+                        console.log(data)
+                    },
+                    onError: (error) => {
+
+                    }
+                }
+            )
+        } catch (error) {
+
+        }
     }
 
 
@@ -33,11 +55,11 @@ const CreateWorkSpacesModal = () => {
 
                 </DialogHeader>
 
-                <form className='space-y-4'>
+                <form onSubmit={handleSubmit} className='space-y-4'>
                     <Input
-                        value={""}
+                        value={name}
                         placeholder="Workspace Name e.g. My Workspace"
-                        onChange={() => { }}
+                        onChange={(e) => setName(e.target.value)}
                         required
                         minLength={3}
                     />
