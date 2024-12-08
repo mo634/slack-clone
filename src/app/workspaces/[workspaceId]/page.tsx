@@ -1,17 +1,24 @@
 "use client"
+import { getWorkspace } from '@/components/workspaces/api/use-get-workspace'
+import { useGetWorkspaceId } from '@/components/workspaces/hooks/use-get-workspace-id'
+
+
 interface workSpaceIdPageProps {
     params: {
         workspaceId: string
     }
 }
 
-import React, { useEffect } from 'react'
-import { toast } from 'sonner'
 
-const page = ({ params }: workSpaceIdPageProps) => {
+
+const page = () => {
+    const workSpaceId = useGetWorkspaceId()
+    const { data, isLoading } = getWorkspace({ id: workSpaceId })
+
+    // const { data, isLoading } = getWorkspace({ id: workSpaceId })
     return (
         <div>
-            {params.workspaceId}
+            {JSON.stringify(data)}
         </div>
     )
 }

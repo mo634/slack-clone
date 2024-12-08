@@ -1,15 +1,13 @@
 "use client"
 import UserButton from '@/components/auth/auth-components/user-button';
 import { modalOpenAtom } from '@/components/workspaces/store/modalAtom';
-import { Button } from '@/components/ui/button'
 import { useWorkSpaces } from '@/components/workspaces/api/use-get-work-spaces';
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useAtom } from 'jotai';
 import { useEffect, useMemo } from 'react';
-import CreateWorkSpacesModal from '@/components/workspaces/components/create-work-spaces-modal';
 import Models from '@/components/models';
 import { useRouter } from 'next/navigation';
-import { Toaster } from '@/components/ui/sonner';
+
 const page = () => {
   const router = useRouter();
   const { signOut } = useAuthActions();
