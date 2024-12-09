@@ -18,7 +18,7 @@ const page = () => {
     // const { data, isLoading } = getWorkspace({ id: workSpaceId })
     return (
         <div>
-            {JSON.stringify(data)}
+            work space id page
         </div>
     )
 }

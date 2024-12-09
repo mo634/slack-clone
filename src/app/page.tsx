@@ -40,7 +40,7 @@ const page = () => {
   return (
     <div className='h-full'>
 
-      < Models />
+
       <p>Logged In !</p>
       <UserButton />
     </div>

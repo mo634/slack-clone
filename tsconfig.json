@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/auth/auth-components/FormInput.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/auth/auth-components/FormInput.ts", "src/app/workspaces/[workspaceId]/workspace-components/WorkSpaceSwitcher.jsx"],
   "exclude": ["node_modules"]
 }
