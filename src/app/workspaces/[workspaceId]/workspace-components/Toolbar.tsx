@@ -8,7 +8,7 @@ const Toolbar = () => {
     const workSpaceId = useGetWorkspaceId()
     const { data, isLoading } = getWorkspace({ id: workSpaceId })
     return (
-        <nav className='bg-[#481349] text-white flex py-4'>
+        <nav className='bg-secondaryColor text-white flex py-4'>
             <div className="h-8 w-full  flex items-center justify-center px-4 ">
 
                 <div className='ml-[30%] bg-accent/20 w-[50%] rounded-md p-3'>

@@ -5,7 +5,7 @@ import WorkSpaceSwitcher from './WorkSpaceSwitcher.jsx'
 
 const Asidebar = () => {
     return (
-        <aside className=' h-full bg-[#481349] text-white p-3'>
+        <aside className=' h-full bg-secondaryColor text-white p-3'>
             <div className=" flex flex-col  h-full justify-between items-center">
 
                 <div className="">

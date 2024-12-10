@@ -35,12 +35,14 @@ const WorkSpaceSwitcher = () => {
             <DropdownMenu>
 
                 <DropdownMenuTrigger>
-                    <p className="text-lg bg-[#ABABAD] hover:bg-[#ABABAD] rounded-full h-10 w-10 flex items-center justify-center">
+                    <p className="text-lg bg-background rounded-full h-10 w-10 flex items-center justify-center">
                         {
                             workSpaceLoading ? (
                                 <Loader className=' size-5 animate-spin' />
                             ) : (
-                                workSpace?.name[0].toUpperCase()
+                                <span
+                                    className='text-secondaryColor'
+                                >{workSpace?.name[0].toUpperCase()}</span>
                             )
                         }
                     </p>

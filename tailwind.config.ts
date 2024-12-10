@@ -10,9 +10,11 @@
 	theme: {
 		extend: {
 			colors: {
+
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
-				mainColor: "#5c3b5b",
+				mainColor: "hsl(0deg 4.73% 88.58%",
+				secondaryColor:"#0c0a09",
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
