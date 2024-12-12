@@ -11,6 +11,14 @@ const schema = defineSchema({
             joinCode:v.string()
         })
 
+        ,
+
+        member:defineTable({
+            userId:v.id("users"),
+            workspaceId:v.id("workSpaces"),
+            role:v.union(v.literal("admin"),v.literal("member"))
+        }).index("by_user_id",["userId"]).index("by_workspace_id",["workspaceId"]).index("by_workspace_user_id",["workspaceId","userId"])
+
 
 });
 
