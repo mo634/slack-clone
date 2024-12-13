@@ -1,3 +1,5 @@
+# Slack Clone
+![Homr Page ](https://github.com/mo634/slack-clone/blob/main/homePage)
 # Slack Clone (Next.js + Convex)
 
 Welcome to the **Slack Clone**, a full-stack messaging application built with **Next.js** on the frontend and **Convex** as the backend service. This project is designed to replicate core Slack functionalities, providing real-time messaging, user authentication, and dynamic channel management.
@@ -27,6 +29,7 @@ Welcome to the **Slack Clone**, a full-stack messaging application built with **
 ---
 
 ## 📋 Prerequisites
+
 
 Before you start, ensure you have the following installed:
 
