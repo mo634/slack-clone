@@ -2,14 +2,17 @@
 
 Welcome to the **Slack Clone**, a full-stack messaging application built with **Next.js** on the frontend and **Convex** as the backend service. This project is designed to replicate core Slack functionalities, providing real-time messaging, user authentication, and dynamic channel management.
 
+
+# data Base Schema
+![ERD](https://app.eraser.io/workspace/gMRrhFhl2MNXFrI8FYT0)
+
 ---
 
 ## 🚀 Features
 
-- **Real-Time Messaging**: Experience seamless communication with live message updates.
-- **Channel Management**: Create, join, and manage channels dynamically.
-- **User Authentication**: Secure login and user session handling.
-- **Responsive Design**: Optimized for desktop and mobile devices.
+- **User Authentication**: Secure login  , signup and ability for using OAuth provider like Github of Google to login  and user session handling.
+- **complete CRUD Operations**: ability to create ,delete , update , read the entities of App throug convex functionalities
+
 
 ---
 
@@ -17,8 +20,8 @@ Welcome to the **Slack Clone**, a full-stack messaging application built with **
 
 - **Frontend**: [Next.js](https://nextjs.org/) (React-based framework)
 - **Backend**: [Convex](https://www.convex.dev/) (Serverless backend with real-time data)
-- **Styling**: Tailwind CSS for modern and responsive UI
-- **Authentication**: NextAuth.js for secure and extensible authentication
+- **Styling**: Tailwind CSS and shadcn/ui for modern and responsive UI
+- **Authentication**: Convex built-in methods
 - **Database**: Convex's built-in data storage
 
 ---
@@ -76,72 +79,66 @@ Before you start, ensure you have the following installed:
 
 ---
 
-## 🚧 Development
-
-- **Frontend**: Modify components and pages in the `pages/` and `components/` directories.
-- **Backend**: Update Convex functions in the `functions/` directory.
-- **Styling**: Customize the UI with Tailwind CSS in the `styles/` directory.
-
-To deploy Convex updates, use:
-```bash
-convex push
-```
-
----
-
-## 🚀 Deployment
-
-1. Build the application:
-   ```bash
-   npm run build
-   # or
-   yarn build
-   ```
-
-2. Deploy Convex backend functions:
-   ```bash
-   convex deploy
-   ```
-
-3. Deploy the frontend to your preferred platform (e.g., Vercel):
-   - For Vercel, run:
-     ```bash
-     vercel deploy
-     ```
 
 ---
 
 ## 📄 Project Structure
 
-```plaintext
-.
-├── components/       # Reusable UI components
-├── functions/        # Convex backend functions
-├── pages/            # Next.js pages (routes)
-├── public/           # Static assets
-├── styles/           # Tailwind CSS configuration and styles
-├── .env.local        # Environment variables
-└── convex.json       # Convex configuration
 ```
-
----
-
-## 🙌 Contributing
-
-We welcome contributions! If you would like to report issues, suggest features, or submit pull requests, please follow our [Contributing Guidelines](CONTRIBUTING.md).
-
----
-
-## 📧 Contact
-
-For questions or feedback, please reach out to [your-email@example.com](mailto:your-email@example.com).
-
----
-
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
+└── 📁src
+    └── 📁app
+        └── 📁auth
+            └── page.tsx 
+        └── 📁workspaces
+            └── 📁[workspaceId]
+                └── 📁workspace-components
+                    └── Asidebar.tsx
+                    └── SidebarIcons.tsx
+                    └── Toolbar.tsx
+                    └── WorkSpaceSwitcher.jsx
+                └── layout.tsx
+                └── page.tsx
+        └── favicon.ico
+        └── globals.css
+        └── layout.tsx
+        └── page.tsx
+    └── 📁components
+        └── 📁auth
+            └── 📁api
+                └── use-current-user.tsx
+            └── 📁auth-components
+                └── FormInput.tsx
+                └── ProviderButton.tsx
+                └── user-button.tsx
+            └── auth-screen.tsx
+            └── sign-in-card.tsx
+            └── sign-up-card.tsx
+            └── types.ts
+        └── 📁ui
+            └── avatar.tsx
+            └── button.tsx
+            └── card.tsx
+            └── dialog.tsx
+            └── dropdown-menu.tsx
+            └── input.tsx
+            └── separator.tsx
+            └── sonner.tsx
+        └── 📁workspaces
+            └── 📁api
+                └── use-create-work-space.tsx
+                └── use-get-work-spaces.tsx
+                └── use-get-workspace.tsx
+            └── 📁components
+                └── create-work-spaces-modal.tsx
+            └── 📁hooks
+                └── use-get-workspace-id.tsx
+            └── 📁store
+                └── modalAtom.tsx
+        └── convexProvider.tsx
+        └── Loader.jsx
+        └── models.tsx
+    └── 📁lib
+        └── utils.ts
+    └── middleware.ts
+```
 Happy coding! 🚀
