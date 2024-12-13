@@ -4,7 +4,7 @@ Welcome to the **Slack Clone**, a full-stack messaging application built with **
 
 
 # data Base Schema
-![ERD]([https://app.eraser.io/workspace/gMRrhFhl2MNXFrI8FYT0](https://github.com/mo634/slack-clone/blob/main/diagram-export-13-12-2024-06_33_35.png)
+![ERD](https://github.com/mo634/slack-clone/blob/main/diagram-export-13-12-2024-06_33_35.png)
 
 ---
 
