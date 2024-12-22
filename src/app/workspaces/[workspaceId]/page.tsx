@@ -6,6 +6,7 @@ import {
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import WorkSpaceLeftSide from './workspace-components/WorkSpaceLeftSide'
 
 interface workSpaceIdPageProps {
     params: {
@@ -21,15 +22,13 @@ const page = () => {
 
     // const { data, isLoading } = getWorkspace({ id: workSpaceId })
     return (
-        <div className=' w-[100vw]'>
+        <div className=' w-[100vw] p-4'>
             <ResizablePanelGroup direction="horizontal"
                 autoSave='workspace-size'
             >
                 {/* left side */}
-                <ResizablePanel
-                    defaultSize={20}
-                    minSize={12}
-                >One</ResizablePanel>
+
+                <WorkSpaceLeftSide />
 
                 <ResizableHandle />
 
