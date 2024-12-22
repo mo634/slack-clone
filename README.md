@@ -1,36 +1,147 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Slack Clone
+![Homr Page ](https://github.com/mo634/slack-clone/blob/main/homePage)
+# Slack Clone (Next.js + Convex)
 
-## Getting Started
+Welcome to the **Slack Clone**, a full-stack messaging application built with **Next.js** on the frontend and **Convex** as the backend service. This project is designed to replicate core Slack functionalities, providing real-time messaging, user authentication, and dynamic channel management.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# data Base Schema
+![ERD](https://github.com/mo634/slack-clone/blob/main/data-base-schema)
+
+---
+
+## 🚀 Features
+
+- **User Authentication**: Secure login  , signup and ability for using OAuth provider like Github of Google to login  and user session handling.
+- **complete CRUD Operations**: ability to create ,delete , update , read the entities of App throug convex functionalities
+
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend**: [Next.js](https://nextjs.org/) (React-based framework)
+- **Backend**: [Convex](https://www.convex.dev/) (Serverless backend with real-time data)
+- **Styling**: Tailwind CSS and shadcn/ui for modern and responsive UI
+- **Authentication**: Convex built-in methods
+- **Database**: Convex's built-in data storage
+
+---
+
+## 📋 Prerequisites
+
+
+Before you start, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- Convex CLI: Install with `npm install -g convex`  
+
+---
+
+## ⚙️ Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/slack-clone.git
+   cd slack-clone
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Set up Convex backend:
+   - Log in to Convex:  
+     ```bash
+     convex login
+     ```
+   - Initialize Convex for the project:  
+     ```bash
+     convex init
+     ```
+
+4. Configure environment variables:
+   - Create a `.env.local` file in the root directory.
+   - Add the required variables:
+     ```env
+     NEXTAUTH_URL=http://localhost:3000
+     NEXTAUTH_SECRET=<your-nextauth-secret>
+     CONVEX_DEPLOYMENT=<your-convex-deployment-url>
+     ```
+
+5. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+---
+
+
+---
+
+## 📄 Project Structure
+
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+└── 📁src
+    └── 📁app
+        └── 📁auth
+            └── page.tsx 
+        └── 📁workspaces
+            └── 📁[workspaceId]
+                └── 📁workspace-components
+                    └── Asidebar.tsx
+                    └── SidebarIcons.tsx
+                    └── Toolbar.tsx
+                    └── WorkSpaceSwitcher.jsx
+                └── layout.tsx
+                └── page.tsx
+        └── favicon.ico
+        └── globals.css
+        └── layout.tsx
+        └── page.tsx
+    └── 📁components
+        └── 📁auth
+            └── 📁api
+                └── use-current-user.tsx
+            └── 📁auth-components
+                └── FormInput.tsx
+                └── ProviderButton.tsx
+                └── user-button.tsx
+            └── auth-screen.tsx
+            └── sign-in-card.tsx
+            └── sign-up-card.tsx
+            └── types.ts
+        └── 📁ui
+            └── avatar.tsx
+            └── button.tsx
+            └── card.tsx
+            └── dialog.tsx
+            └── dropdown-menu.tsx
+            └── input.tsx
+            └── separator.tsx
+            └── sonner.tsx
+        └── 📁workspaces
+            └── 📁api
+                └── use-create-work-space.tsx
+                └── use-get-work-spaces.tsx
+                └── use-get-workspace.tsx
+            └── 📁components
+                └── create-work-spaces-modal.tsx
+            └── 📁hooks
+                └── use-get-workspace-id.tsx
+            └── 📁store
+                └── modalAtom.tsx
+        └── convexProvider.tsx
+        └── Loader.jsx
+        └── models.tsx
+    └── 📁lib
+        └── utils.ts
+    └── middleware.ts
+```
+Happy coding! 🚀
