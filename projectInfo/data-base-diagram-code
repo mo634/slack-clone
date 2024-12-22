@@ -1,0 +1,24 @@
+user {
+    _id string 
+    name string 
+    email string 
+    }
+    
+    workspaces{
+    _id string 
+    userId string 
+    joinCode string 
+    }
+    
+    member{
+    userId string
+    wrokspaceId string
+    role string
+    }
+    
+    workspaces.userId >  user._id
+    
+    member.userId > user._id
+    member.wrokspaceId - workspaces._id
+    
+    
