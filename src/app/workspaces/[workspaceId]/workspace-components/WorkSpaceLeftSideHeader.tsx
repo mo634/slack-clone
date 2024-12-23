@@ -8,6 +8,7 @@ import {
 import { Doc } from "../../../../../convex/_generated/dataModel"
 import { ChevronDown, ListFilter, SquarePen } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Hint from "./Hint"
 interface WorkSpaceLeftSideHeaderProps {
     Data: Doc<"workSpaces">
     isAdmin: boolean
@@ -63,9 +64,12 @@ const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps
                 <Button variant={null} size="icon">
                     <ListFilter />
                 </Button>
-                <Button variant={null}>
-                    <SquarePen className="mr-2" size={"icon"} />
-                </Button>
+                <Hint label="New Message" side="bottom" align="center">
+                    <Button variant={null} size="icon">
+                        <SquarePen />
+                    </Button>
+
+                </Hint>
             </div>
 
 
