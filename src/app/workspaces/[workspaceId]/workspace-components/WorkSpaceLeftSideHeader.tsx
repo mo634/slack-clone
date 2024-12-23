@@ -61,9 +61,11 @@ const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps
             </DropdownMenu>
 
             <div className="flex">
-                <Button variant={null} size="icon">
-                    <ListFilter />
-                </Button>
+                <Hint label="Filter Conversations" side="bottom" align="center">
+                    <Button variant={null} size="icon">
+                        <ListFilter />
+                    </Button>
+                </Hint>
                 <Hint label="New Message" side="bottom" align="center">
                     <Button variant={null} size="icon">
                         <SquarePen />

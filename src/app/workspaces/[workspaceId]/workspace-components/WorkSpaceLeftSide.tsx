@@ -33,6 +33,7 @@ const WorkSpaceLeftSide = () => {
         <ResizablePanel
             defaultSize={20}
             minSize={12}
+            className='p-4 bg-[#c9c9c96b]'
         >
 
             <WorkSpaceLeftSideHeader

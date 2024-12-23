@@ -22,7 +22,7 @@ const page = () => {
 
     // const { data, isLoading } = getWorkspace({ id: workSpaceId })
     return (
-        <div className=' w-[100vw] p-4'>
+        <div className=' w-[100vw]'>
             <ResizablePanelGroup direction="horizontal"
                 autoSave='workspace-size'
             >
