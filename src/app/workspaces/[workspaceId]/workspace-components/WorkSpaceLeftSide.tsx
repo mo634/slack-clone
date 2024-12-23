@@ -37,6 +37,7 @@ const WorkSpaceLeftSide = () => {
 
             <WorkSpaceLeftSideHeader
                 Data={workspaceData}
+                isAdmin={memberData?.role === "admin"}
             />
 
         </ResizablePanel>

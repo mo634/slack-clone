@@ -1,21 +1,21 @@
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Doc } from "../../../../../convex/_generated/dataModel"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, ListFilter, SquarePen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 interface WorkSpaceLeftSideHeaderProps {
     Data: Doc<"workSpaces">
+    isAdmin: boolean
 }
 
-const WorkSpaceLeftSideHeader = ({ Data }: WorkSpaceLeftSideHeaderProps) => {
+const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps) => {
     return (
-        <div className="">
+        <div className=" flex items-center justify-between">
             <DropdownMenu >
                 <DropdownMenuTrigger
                     asChild
@@ -25,6 +25,7 @@ const WorkSpaceLeftSideHeader = ({ Data }: WorkSpaceLeftSideHeaderProps) => {
                         <ChevronDown className="size-5" />
                     </Button>
                 </DropdownMenuTrigger>
+
                 <DropdownMenuContent side="bottom" align="start" className="w-64">
                     <DropdownMenuLabel
                         className=""
@@ -39,10 +40,35 @@ const WorkSpaceLeftSideHeader = ({ Data }: WorkSpaceLeftSideHeaderProps) => {
 
                     </DropdownMenuLabel>
 
-                    <DropdownMenuSeparator />
+                    {
+                        isAdmin && (
+                            <>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuLabel>
+                                    invite people  to {Data.name}
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuLabel>
+                                    preferences
+                                </DropdownMenuLabel>
+                            </>
+                        )
+                    }
 
                 </DropdownMenuContent>
+
             </DropdownMenu>
+
+            <div className="flex">
+                <Button variant={null} size="icon">
+                    <ListFilter />
+                </Button>
+                <Button variant={null}>
+                    <SquarePen className="mr-2" size={"icon"} />
+                </Button>
+            </div>
+
+
         </div>
     )
 }
