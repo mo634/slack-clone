@@ -40,6 +40,12 @@ const generateCode = () => {
             role:"admin"
         })
 
+        // create channel
+        await ctx.db.insert("channel",{
+            name:"general",
+            workspaceId
+        })
+
         return workspaceId;
     },
     });

@@ -18,7 +18,7 @@ interface WorkSpaceLeftSideHeaderProps {
 
 const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps) => {
     const [isopen, setIsOpen] = useState(false)
-    const [isPrefrenceClicked, setIsPrefrenceClicked] = useState(false)
+
     return (
 
         <>
