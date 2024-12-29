@@ -22,8 +22,8 @@ const WorkSpaceLeftSide = () => {
 
     if (!workspaceData) {
         return (
-            <div className=" h[100vh] w-[100%] flex flex-col items-center justify-center">
-                <AlertTriangle className=' text-mainColor size-20' />
+            <div className=" h[100vh] flex flex-col items-center justify-center p-4 bg-[#c9c9c96b]">
+                <AlertTriangle className=' text-mainColor size-12' />
                 <p className='text-xl'>work space not found </p>
             </div>
         )

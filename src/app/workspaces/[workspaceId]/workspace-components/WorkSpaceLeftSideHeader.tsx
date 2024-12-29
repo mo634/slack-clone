@@ -18,16 +18,12 @@ interface WorkSpaceLeftSideHeaderProps {
 
 const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps) => {
     const [isopen, setIsOpen] = useState(false)
-
+    const [isPrefrenceClicked, setIsPrefrenceClicked] = useState(false)
     return (
 
         <>
 
-            <PrefrencesModal
-                isopen={isopen}
-                setIsOpen={setIsOpen}
-                initialValue={Data.name}
-            />
+
 
             <div className=" flex items-center justify-between">
                 <DropdownMenu >
@@ -62,8 +58,15 @@ const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps
                                         invite people  to {Data.name}
                                     </DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuLabel>
-                                        preferences
+                                    <DropdownMenuLabel asChild>
+
+
+                                        <PrefrencesModal
+                                            isopen={isopen}
+                                            setIsOpen={setIsOpen}
+                                            initialValue={Data.name}
+                                        />
+
                                     </DropdownMenuLabel>
                                 </>
                             )
