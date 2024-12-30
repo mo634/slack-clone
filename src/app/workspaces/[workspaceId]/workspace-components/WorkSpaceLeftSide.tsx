@@ -7,13 +7,19 @@ import WorkSpaceLeftSideHeader from './WorkSpaceLeftSideHeader'
 import SidebarItmes from './SidebarItmes'
 import WorkspaceSection from './WorkspaceSection'
 import { getChannels } from '@/components/channels/api/use-get-channels'
+import { getMembers } from '@/components/members/api/use-get-members'
+import UserItem from './UserItem'
 
 
 const WorkSpaceLeftSide = () => {
     // const worksacpeId
     const worksacpeId = useGetWorkspaceId()
+
     const { data: memberData, isLoading: memberLoading } = getCurrentMember({ workspaceId: worksacpeId })
+
     const { data: workspaceData, isLoading: workspaceLoading } = getWorkspace({ id: worksacpeId })
+
+    const { data: membersData, isLoading: membersLoading } = getMembers({ workspaceId: worksacpeId })
 
     const { data: channelData, isLoading: channelLoading } = getChannels({ workspaceId: worksacpeId })
     if (memberLoading || workspaceLoading) {
@@ -37,7 +43,8 @@ const WorkSpaceLeftSide = () => {
         <ResizablePanel
             defaultSize={20}
             minSize={12}
-            className='p-4 bg-[#c9c9c96b]'
+            className='p-[1%] bg-[#c9c9c96b] '
+
         >
 
             <WorkSpaceLeftSideHeader
@@ -60,18 +67,44 @@ const WorkSpaceLeftSide = () => {
             {/*end  side-bar items */}
 
             {/*start render workspace channels  */}
-            {
-                channelData?.map((channelItem) => (
-                    <SidebarItmes
-                        key={channelItem._id}
-                        label={channelItem.name}
-                        icon={HashIcon}
-                        id={channelItem._id}
-                    />
-                ))
-            }
+            <WorkspaceSection
+                label="Channels"
+                hint="New Channel"
+                onNew={() => { }}
+            >
+                {
+                    channelData?.map((channelItem) => (
+                        <SidebarItmes
+                            key={channelItem._id}
+                            label={channelItem.name}
+                            icon={HashIcon}
+                            id={channelItem._id}
+                        />
+                    ))
+                }
+            </WorkspaceSection>
             {/*end render workspace channels  */}
 
+            {/* start render workspace members */}
+            <WorkspaceSection
+                label="members"
+                hint="New member"
+                onNew={() => { }}
+            >
+                {
+                    membersData?.map((memberItem) => (
+                        <UserItem
+                            key={memberItem._id}
+                            id={memberItem._id}
+                            label={memberItem.user.name}
+                            image={memberItem.user.image}
+                        />
+
+                    ))
+                }
+
+            </WorkspaceSection>
+            {/* end render workspace members */}
 
 
         </ResizablePanel>

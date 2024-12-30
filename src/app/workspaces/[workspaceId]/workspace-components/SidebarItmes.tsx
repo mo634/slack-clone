@@ -19,15 +19,17 @@ const SidebarItmes = (
     const workspaceId = useGetWorkspaceId()
     return (
 
-        <Button className=' mt-3 w-full flex justify-start '>
+        <Button className=' mt-3 w-full flex justify-start '
+            variant={null}
+        >
 
             <Link href={`/workspace/${workspaceId}/channel/${id}`}
                 className='flex  items-center gap-2'
             >
 
-                <Icon />
+                <Icon size={15} />
 
-                <span>{label}</span>
+                <span className=''>{label}</span>
 
             </Link>
 

@@ -30,9 +30,9 @@ const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps
                     <DropdownMenuTrigger
                         asChild
                         className="flex justify-center items-center gap-1 text-lg">
-                        <Button>
-                            <span>{Data.name}</span>
-                            <ChevronDown className="size-5" />
+                        <Button className="flex items-center justify-between w-fit truncate">
+                            <span className="truncate">{Data.name}</span>
+                            <ChevronDown className="w-5 h-5" />
                         </Button>
                     </DropdownMenuTrigger>
 
@@ -42,7 +42,9 @@ const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps
                         >
                             <div className=" ">
                                 <div className=" flex items-center gap-2">
-                                    <span className=" w-10 h-10 bg-secondaryColor text-white text-2xl rounded-full flex items-center justify-center ">{Data.name.charAt(0).toUpperCase()}</span>
+                                    <span className=" w-20 h-10 bg-secondaryColor text-white text-2xl rounded-full flex items-center justify-center ">
+                                        {Data.name.charAt(0).toUpperCase()}
+                                    </span>
                                     <span className=" text-2xl line-clamp-1">{Data.name}</span>
                                 </div>
                                 <p className="ml-12 text-muted-foreground line-clamp-1">active work space</p>
