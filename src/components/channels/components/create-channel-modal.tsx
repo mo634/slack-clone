@@ -1,11 +1,50 @@
+import { Input } from '@/components/ui/input'
 import { useCreateChannelModal } from '../store/use-create-channel-modal'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { useGetWorkspaceId } from '@/components/workspaces/hooks/use-get-workspace-id'
+import { useCreateChannels } from '../api/use-create-channel'
 
 const CreateChannelModal = () => {
     // add control state for dialog 
     const [open, setOpen] = useCreateChannelModal()
+    const [name, setName] = useState('')
+
+    const workspaceId = useGetWorkspaceId()
+    const { mutate, isPending } = useCreateChannels()
+
+
+    // funcs 
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value.replace(/\s+/g, '-')
+        setName(value)
+    }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault()
+        mutate({ name, workspaceId }, {
+            onSuccess: (id) => {
+                handleClose()
+            }
+        })
+    }
+
+    const handleClose = () => {
+
+        setName("")
+
+        setOpen(false)
+    }
+
+    const handleCreate = () => {
+
+    }
+
+    console.log(name)
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={handleClose}>
 
             {/*start  dialog content  */}
             <DialogContent>
@@ -16,7 +55,30 @@ const CreateChannelModal = () => {
                 </DialogHeader>
                 {/* end  dialog header  */}
 
+                {/* start body  */}
+                <form onSubmit={handleSubmit}>
+                    <Input
+                        value={name}
+                        onChange={handleChange}
+                        placeholder="e.g. channel-name"
+                        autoFocus
+                        required
+                        minLength={8}
+                        maxLength={12}
+                    />
+                    <div className=" flex justify-end">
 
+                        <Button
+                            variant={null}
+                            disabled={isPending}
+                            className=' mt-2 bg-secondaryColor text-white hover:bg-secondaryColor/80 transition duration-300'
+                        >
+                            create
+                        </Button>
+                    </div>
+
+                </form>
+                {/* end body  */}
             </DialogContent>
             {/*end   dialog content  */}
 

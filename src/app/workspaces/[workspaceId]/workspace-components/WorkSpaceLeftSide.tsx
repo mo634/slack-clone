@@ -73,7 +73,7 @@ const WorkSpaceLeftSide = () => {
             <WorkspaceSection
                 label="Channels"
                 hint="New Channel"
-                onNew={() => setOpen(true)}
+                onNew={memberData?.role === "admin" ? () => setOpen(true) : undefined}
             >
                 {
                     channelData?.map((channelItem) => (
@@ -110,7 +110,7 @@ const WorkSpaceLeftSide = () => {
             {/* end render workspace members */}
 
 
-        </ResizablePanel>
+        </ResizablePanel >
     )
 }
 
