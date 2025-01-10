@@ -9,11 +9,14 @@ import WorkspaceSection from './WorkspaceSection'
 import { getChannels } from '@/components/channels/api/use-get-channels'
 import { getMembers } from '@/components/members/api/use-get-members'
 import UserItem from './UserItem'
+import { useCreateChannelModal } from '@/components/channels/store/use-create-channel-modal'
 
 
 const WorkSpaceLeftSide = () => {
     // const worksacpeId
     const worksacpeId = useGetWorkspaceId()
+
+    const [open, setOpen] = useCreateChannelModal()
 
     const { data: memberData, isLoading: memberLoading } = getCurrentMember({ workspaceId: worksacpeId })
 
@@ -70,7 +73,7 @@ const WorkSpaceLeftSide = () => {
             <WorkspaceSection
                 label="Channels"
                 hint="New Channel"
-                onNew={() => { }}
+                onNew={() => setOpen(true)}
             >
                 {
                     channelData?.map((channelItem) => (
