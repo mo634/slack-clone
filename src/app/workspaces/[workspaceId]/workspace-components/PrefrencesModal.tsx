@@ -83,7 +83,10 @@ const PrefrencesModal = ({
         <>
             <ConfirmDialogUI />
             <Dialog open={isopen} onOpenChange={setIsOpen}>
+
                 <DialogTrigger>Prefrences</DialogTrigger>
+
+
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>{value}</DialogTitle>

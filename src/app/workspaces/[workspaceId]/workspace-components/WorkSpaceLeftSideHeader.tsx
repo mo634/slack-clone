@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import Hint from "./Hint"
 import PrefrencesModal from "./PrefrencesModal"
 import { useState } from "react"
+import InviteModal from "./InviteModal"
 interface WorkSpaceLeftSideHeaderProps {
     Data: Doc<"workSpaces">
     isAdmin: boolean
@@ -18,6 +19,8 @@ interface WorkSpaceLeftSideHeaderProps {
 
 const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps) => {
     const [isopen, setIsOpen] = useState(false)
+
+    const [isInviteOpen, setIsInviteOpen] = useState(false)
 
     return (
 
@@ -56,10 +59,18 @@ const WorkSpaceLeftSideHeader = ({ Data, isAdmin }: WorkSpaceLeftSideHeaderProps
                             isAdmin && (
                                 <>
                                     <DropdownMenuSeparator />
+
                                     <DropdownMenuLabel>
-                                        invite people  to {Data.name}
+                                        <InviteModal
+                                            open={isInviteOpen}
+                                            setOpen={setIsInviteOpen}
+                                            name={Data.name}
+                                            joinCode={Data.joinCode}
+                                        />
                                     </DropdownMenuLabel>
+
                                     <DropdownMenuSeparator />
+
                                     <DropdownMenuLabel asChild>
 
 
