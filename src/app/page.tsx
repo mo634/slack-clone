@@ -8,6 +8,7 @@ import { useEffect, useMemo } from 'react';
 import Models from '@/components/models';
 import { useRouter } from 'next/navigation';
 
+
 const page = () => {
   const router = useRouter();
   const { signOut } = useAuthActions();
@@ -39,8 +40,6 @@ const page = () => {
 
   return (
     <div className='h-full'>
-
-
       <p>Logged In !</p>
       <UserButton />
     </div>

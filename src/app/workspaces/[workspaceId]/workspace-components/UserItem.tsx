@@ -22,7 +22,7 @@ const UserItem = (
         <Button
             asChild
             variant={null}
-            className=' mt-4'
+            className='mt-4 w-full flex justify-start '
         >
             <Link href={`/workspace/${workspaceId}/member/${id}`}
                 className=' flex items-center gap-2'
