@@ -19,13 +19,12 @@ const CreateWorkSpacesModal = () => {
     const router = useRouter()
     const [name, setName] = useState<string>("")
     const [isOpen, setIsOpen] = useAtom(modalOpenAtom)
-    console.log("modal value", isOpen)
+
 
     const { mutate } = useCreateWorkSpace()
 
     const handleClose = () => {
         setIsOpen(false)
-        console.log("modal value", isOpen)
 
     }
 
@@ -39,7 +38,7 @@ const CreateWorkSpacesModal = () => {
                 {
 
                     onSuccess: (data) => {
-                        console.log(data)
+
                         toast.success("workspace created successfully", { duration: 3000 })
                         setIsOpen(false)
                     },

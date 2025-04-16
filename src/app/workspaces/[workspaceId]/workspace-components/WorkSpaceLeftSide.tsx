@@ -10,10 +10,11 @@ import { getChannels } from '@/components/channels/api/use-get-channels'
 import { getMembers } from '@/components/members/api/use-get-members'
 import UserItem from './UserItem'
 import { useCreateChannelModal } from '@/components/channels/store/use-create-channel-modal'
+import { useGetChannelId } from '@/components/workspaces/hooks/use-get-channel-id'
 
 
 const WorkSpaceLeftSide = () => {
-    // const worksacpeId
+    const channelId = useGetChannelId()
     const worksacpeId = useGetWorkspaceId()
 
     const [open, setOpen] = useCreateChannelModal()
@@ -82,6 +83,7 @@ const WorkSpaceLeftSide = () => {
                             label={channelItem.name}
                             icon={HashIcon}
                             id={channelItem._id}
+                            isActive={channelItem._id === channelId}
                         />
                     ))
                 }
@@ -101,6 +103,7 @@ const WorkSpaceLeftSide = () => {
                             id={memberItem._id}
                             label={memberItem.user.name}
                             image={memberItem.user.image}
+
                         />
 
                     ))

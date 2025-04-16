@@ -5,12 +5,15 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { useGetWorkspaceId } from '@/components/workspaces/hooks/use-get-workspace-id'
 import { useCreateChannels } from '../api/use-create-channel'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 const CreateChannelModal = () => {
     // add control state for dialog 
     const [open, setOpen] = useCreateChannelModal()
     const [name, setName] = useState('')
 
+    const router = useRouter()
     const workspaceId = useGetWorkspaceId()
     const { mutate, isPending } = useCreateChannels()
 
@@ -26,7 +29,12 @@ const CreateChannelModal = () => {
         e.preventDefault()
         mutate({ name, workspaceId }, {
             onSuccess: (id) => {
+                // redirect to the new channel
+                router.push(`/workspaces/${workspaceId}/channel/${id}`)
                 handleClose()
+            },
+            onError: (error) => {
+                toast.error("something went wrong")
             }
         })
     }
@@ -42,7 +50,7 @@ const CreateChannelModal = () => {
 
     }
 
-    console.log(name)
+
     return (
         <Dialog open={open} onOpenChange={handleClose}>
 

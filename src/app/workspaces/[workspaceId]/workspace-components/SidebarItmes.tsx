@@ -1,29 +1,35 @@
 import { Button } from '@/components/ui/button'
 import { useGetWorkspaceId } from '@/components/workspaces/hooks/use-get-workspace-id'
+import { cn } from '@/lib/utils'
 import { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
+import React, { use } from 'react'
 import { IconType } from 'react-icons/lib'
 
 interface SidebarItmesProps {
     label: string,
     icon: LucideIcon | IconType,
     id: string
+    isActive?: boolean
 }
 const SidebarItmes = (
-    { label,
+    {
+        label,
         icon: Icon,
-        id
+        id,
+        isActive
     }: SidebarItmesProps
 ) => {
     const workspaceId = useGetWorkspaceId()
+
+
     return (
 
-        <Button className=' mt-3 w-full flex justify-start '
+        <Button className={cn(" ml-2 mt-3 w-[80%] flex justify-start ", isActive && "bg-[#2196f3] text-white")}
             variant={null}
         >
 
-            <Link href={`/workspace/${workspaceId}/channel/${id}`}
+            <Link href={`/workspaces/${workspaceId}/channel/${id}`}
                 className='flex  items-center gap-2'
             >
 
