@@ -5,6 +5,7 @@ import { useGetChannelId } from '@/components/workspaces/hooks/use-get-channel-i
 import { Loader, TriangleAlert } from 'lucide-react'
 import React from 'react'
 import Header from './Header'
+import ChatInput from './ChatInput'
 
 
 const page = () => {
@@ -36,10 +37,11 @@ const page = () => {
     console.log("channelData", channelData.name)
 
     return (
-        <div>
+        <div className="h-full flex flex-col justify-between">
             <Header
                 title={channelData.name}
             />
+            <ChatInput/>
         </div>
     )
 }
